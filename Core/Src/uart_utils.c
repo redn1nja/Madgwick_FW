@@ -16,6 +16,15 @@ void send_IMU(IMUData* imu, UART_HandleTypeDef * uart){
     HAL_UART_Transmit_IT(uart, (unsigned char*)buf, strlen(buf));
 }
 
+void send_RPY(RPY* rpy, UART_HandleTypeDef * uart) {
+    while (!sent){}
+    sent = false;
+    sprintf(buf, "[%lu.%lu]\n\rRoll=%.2f,Pitch=%.2f,Yaw=%.2f\n\r\n\r",
+            time.sec, time.msec,
+            rpy->roll, rpy->pitch, rpy->yaw);
+    HAL_UART_Transmit_IT(uart, (unsigned char*)buf, strlen(buf));
+}
+
 void printerr(const char* data, UART_HandleTypeDef* huart){
     while (!sent){}
     sent = false;
@@ -25,3 +34,4 @@ void printerr(const char* data, UART_HandleTypeDef* huart){
 void HAL_UART_TxCpltCallback(UART_HandleTypeDef* huart){
     sent = true;
 }
+

@@ -104,7 +104,8 @@ int main(void)
   MX_TIM1_Init();
   /* USER CODE BEGIN 2 */
   IMUData data;
-
+  RPY rpy;
+  clear_RPY(&rpy);
   start_time();
   if (init_accel() != HAL_OK ||
       init_gyro() != HAL_OK  ){
@@ -118,7 +119,9 @@ int main(void)
   {
       read_accel_data(&data);
       read_gyro_data(&data);
+      calculate_rpy(&data, &rpy);
       send_IMU(&data, &huart2);
+      send_RPY(&rpy, &huart2);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
