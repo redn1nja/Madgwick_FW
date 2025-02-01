@@ -2,6 +2,8 @@
 #include "uart_utils.h"
 #include "time_utils.h"
 
+
+extern time_calc time;
 #define DIVISOR ((float)0.001)
 
 
@@ -32,12 +34,12 @@ inline float normalize_angle(float angle){
     return angle;
 }
 
-void calculate_rpy(const IMUData* imu, RPY* data) {
-    uint32_t dt_int = calc_dt();
-    float dt = (float)dt_int * DIVISOR;
-    data->roll = normalize_angle(data->roll + imu->gyroX * dt);
-    data->pitch = normalize_angle(data->pitch + imu->gyroY * dt);
-    data->yaw = normalize_angle(data->yaw + imu->gyroZ * dt);
+void calculate_rpy(IMUStamped* imu) {
+    uint32_t dtint = (imu->time.sec - time.sec) * 1000 + (imu->time.msec - time.msec);
+    float dt = (float)dtint * DIVISOR;
+    imu->rpy.roll = normalize_angle(imu->rpy.roll + imu->imu.gyroX * dt);
+    imu->rpy.pitch = normalize_angle(imu->rpy.pitch +  imu->imu.gyroY * dt);
+    imu->rpy.yaw = normalize_angle(imu->rpy.yaw + imu->imu.gyroZ * dt);
 
 }
 

@@ -27,6 +27,8 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include <time.h>
+
 #include "uart_utils.h"
 #include "time_utils.h"
 #include "accel.h"
@@ -103,25 +105,27 @@ int main(void)
   MX_USART2_UART_Init();
   MX_TIM1_Init();
   /* USER CODE BEGIN 2 */
-  IMUData data;
-  RPY rpy;
-  clear_RPY(&rpy);
+  IMUStamped data;
+  data.sync = 0xFE;
+  clear_RPY(&data.rpy);
   start_time();
+
   if (init_accel() != HAL_OK ||
       init_gyro() != HAL_OK  ){
       Error_Handler();
   }
+  stamp_IMUData(&data);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-      read_accel_data(&data);
-      read_gyro_data(&data);
-      calculate_rpy(&data, &rpy);
-      send_IMU(&data, &huart2);
-      send_RPY(&rpy, &huart2);
+      read_accel_data(&(data.imu));
+      read_gyro_data(&(data.imu));
+      calculate_rpy(&data);
+      send_IMUStamped(&data, &huart2);
+      stamp_IMUData(&data);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
