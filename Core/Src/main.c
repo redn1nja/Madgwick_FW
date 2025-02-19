@@ -33,6 +33,7 @@
 #include "time_utils.h"
 #include "accel.h"
 #include "gyro.h"
+#include "magdrv.h"
 
 /* USER CODE END Includes */
 
@@ -111,7 +112,8 @@ int main(void)
   start_time();
 
   if (init_accel() != HAL_OK ||
-      init_gyro() != HAL_OK  ){
+      init_gyro() != HAL_OK ||
+      init_mag() != HAL_OK){
       Error_Handler();
   }
   stamp_IMUData(&data);
@@ -123,8 +125,11 @@ int main(void)
   {
       read_accel_data(&(data.imu));
       read_gyro_data(&(data.imu));
-      calculate_rpy(&data);
-      send_IMUStamped(&data, &huart2);
+      update_mag(&(data.imu));
+      send_IMU(&(data.imu), &huart2);
+      HAL_Delay(300);
+      // calculate_rpy(&data);
+      // send_IMUStamped(&data, &huart2);
       stamp_IMUData(&data);
     /* USER CODE END WHILE */
 
