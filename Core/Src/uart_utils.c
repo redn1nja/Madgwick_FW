@@ -12,7 +12,6 @@ void wait_for_sent(){
 void send_IMU(IMUData* imu, UART_HandleTypeDef * uart){
     wait_for_sent();
     sprintf(buf, "[%lu.%lu]\n\rgX=%.2f,gY=%.2f,gZ=%.2f\n\raX=%.2f,aY=%.2f,aZ=%.2f\n\rmX=%.2f,mY=%.2f,mZ=%.2f\n\r\n\r",
-    // sprintf(buf, "[%lu.%lu]\n\rgX=%.2f,gY=%.2f,gZ=%.2f\n\raX=%.2f,aY=%.2f,aZ=%.2f\n\r\n\r",
             time.sec, time.msec,
             imu->gyroX, imu->gyroY, imu->gyroZ,
             imu->accX, imu->accY, imu->accZ,

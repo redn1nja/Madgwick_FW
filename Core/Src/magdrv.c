@@ -26,12 +26,9 @@ HAL_StatusTypeDef read_mag(float* pData) {
 
     for (int i = 0; i < 3; i++) {
         raw_data[i] = (int16_t)((uint16_t)buffer[2*i] << 8) + buffer[2*i+1];
-
-    }
-
-    for(int i = 0; i<3; i++) {
         pData[i] = (float)(raw_data[i] >> 4) / LSM303_MAG_GAIN_LSB_GAUSS;
     }
+
 
     return HAL_OK;
 

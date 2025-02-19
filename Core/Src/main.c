@@ -126,10 +126,12 @@ int main(void)
       read_accel_data(&(data.imu));
       read_gyro_data(&(data.imu));
       update_mag(&(data.imu));
+#ifdef TEST
       send_IMU(&(data.imu), &huart2);
-      HAL_Delay(300);
-      // calculate_rpy(&data);
-      // send_IMUStamped(&data, &huart2);
+#else// TEST
+      calculate_rpy(&data);
+      send_IMUStamped(&data, &huart2);
+#endif // TEST
       stamp_IMUData(&data);
     /* USER CODE END WHILE */
 
