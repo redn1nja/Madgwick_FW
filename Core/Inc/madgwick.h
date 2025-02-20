@@ -4,13 +4,20 @@
 #include <math.h>
 #include <imu_data.h>
 
+#include "quat.h"
+
 #define M_PI_MINE 3.14159265358979
-#define gyroMeasError M_PI_MINE * (5.0f / 180.0f) // gyroscope measurement error in rad/s (shown as 5 deg/s)
-#define gyroMeasDrift M_PI_MINE * (0.2f / 180.0f) // gyroscope measurement error in rad/s/s (shown as 0.2f deg/s/s)
-#define beta sqrt(3.0f / 4.0f) * gyroMeasError // compute beta
+#define gyroMeasError M_PI_MINE * (15.0f / 180.0f)
+#define gyroMeasDrift M_PI_MINE * (0.03f / 180.0f)
+#define beta sqrt(3.0f / 4.0f) * gyroMeasError
 #define zeta sqrt(3.0f / 4.0f) * gyroMeasDrift
 
 
+
+
+
 void madgwick_filter_update(IMUStamped* pdata);
+
+
 
 #endif //MADGWICK_H

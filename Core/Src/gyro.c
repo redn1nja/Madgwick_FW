@@ -5,8 +5,7 @@
 
 extern time_calc time;
 #define DIVISOR ((float)0.001)
-
-
+#define DEGREE_TO_RADIAN 0.017453292519943295769236907684886
 
 HAL_StatusTypeDef init_gyro(){
     if (BSP_GYRO_Init() !=HAL_OK){
@@ -19,9 +18,9 @@ HAL_StatusTypeDef init_gyro(){
 void read_gyro_data(IMUData* data){
     float buffer[3] = {0};
     BSP_GYRO_GetXYZ(buffer);
-    data->gyroX = buffer[0] * DIVISOR;
-    data->gyroY = buffer[1] * DIVISOR;
-    data->gyroZ = buffer[2] * DIVISOR;
+    data->gyroX = buffer[0] / 16.0 * DIVISOR * DEGREE_TO_RADIAN;
+    data->gyroY = buffer[1] / 16.0 * DIVISOR * DEGREE_TO_RADIAN;
+    data->gyroZ = buffer[2] / 16.0 * DIVISOR  * DEGREE_TO_RADIAN;
 }
 
 inline float normalize_angle(float angle){
@@ -48,3 +47,4 @@ void clear_RPY(RPY* data){
     data->pitch = 0;
     data->yaw = 0;
 }
+

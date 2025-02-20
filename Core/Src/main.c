@@ -34,6 +34,7 @@
 #include "accel.h"
 #include "gyro.h"
 #include "magdrv.h"
+#include "madgwick.h"
 
 /* USER CODE END Includes */
 
@@ -126,10 +127,10 @@ int main(void)
       read_accel_data(&(data.imu));
       read_gyro_data(&(data.imu));
       update_mag(&(data.imu));
+      madgwick_filter_update(&data);
 #ifdef TEST
-      send_IMU(&(data.imu), &huart2);
-#else// TEST
-      calculate_rpy(&data);
+      send_RPY(&data.rpy, &huart2);
+#else // TEST
       send_IMUStamped(&data, &huart2);
 #endif // TEST
       stamp_IMUData(&data);

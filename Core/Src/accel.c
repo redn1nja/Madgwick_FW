@@ -12,11 +12,12 @@ HAL_StatusTypeDef init_accel(){
 
 #define GFORCE_MILI ((float)0.00980665)
 #define GFORCE ((float)9.80665)
+#define MILIG_TO_GFORCE ((float)0.001)
 
 void read_accel_data(IMUData* data){
     int16_t buffer[3] = {0};
     BSP_ACCELERO_GetXYZ(buffer);
-    data->accX = (float)(buffer[0] >> 4) * GFORCE_MILI;
-    data->accY = (float)(buffer[1] >> 4) * GFORCE_MILI;
-    data->accZ = (float)(buffer[2] >> 4) * GFORCE_MILI;
+    data->accX = (float)(buffer[0] >> 4) * MILIG_TO_GFORCE;
+    data->accY = (float)(buffer[1] >> 4) * MILIG_TO_GFORCE;
+    data->accZ = (float)(buffer[2] >> 4) * MILIG_TO_GFORCE;
 }

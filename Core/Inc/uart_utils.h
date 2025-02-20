@@ -9,7 +9,7 @@
 #include "stdio.h"
 #include "string.h"
 
-void send_IMU(IMUData* imu, UART_HandleTypeDef * uart);
+void send_IMU(IMUStamped* imu, UART_HandleTypeDef * uart);
 void send_IMUStamped(IMUStamped* imu, UART_HandleTypeDef * uart);
 void send_RPY(RPY* rpy, UART_HandleTypeDef * uart);
 void printerr(const char* data, UART_HandleTypeDef* huart);
