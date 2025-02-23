@@ -15,7 +15,7 @@ void madgwick_filter_update(IMUStamped* pdata) {
     Quaternion qGyro = {0, pdata->imu.gyroX, pdata->imu.gyroY, pdata->imu.gyroZ};
     {
         Quaternion qGyroCpy = qGyro;
-        quat_scalar_mult(&qGyro, 0.5);
+        quat_scalar_mult(&qGyroCpy, 0.5);
         quat_prod(&qGyro, &q, &qGyroCpy);
     }
     float Fg[3] ={0};

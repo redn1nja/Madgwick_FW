@@ -12,12 +12,6 @@
 #define beta sqrt(3.0f / 4.0f) * gyroMeasError
 #define zeta sqrt(3.0f / 4.0f) * gyroMeasDrift
 
-
-
-
-
 void madgwick_filter_update(IMUStamped* pdata);
-
-
 
 #endif //MADGWICK_H

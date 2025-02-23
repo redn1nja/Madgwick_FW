@@ -17,6 +17,9 @@ HAL_StatusTypeDef init_accel(){
 void read_accel_data(IMUData* data){
     int16_t buffer[3] = {0};
     BSP_ACCELERO_GetXYZ(buffer);
+    if (buffer[0] == 0 && buffer[1] == 0 && buffer[2] == 0){
+        return;
+    }
     data->accX = (float)(buffer[0] >> 4) * MILIG_TO_GFORCE;
     data->accY = (float)(buffer[1] >> 4) * MILIG_TO_GFORCE;
     data->accZ = (float)(buffer[2] >> 4) * MILIG_TO_GFORCE;
