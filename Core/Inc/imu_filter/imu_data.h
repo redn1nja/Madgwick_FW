@@ -1,3 +1,7 @@
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #ifndef IMU_IMU_DATA_H
 #define IMU_IMU_DATA_H
 
@@ -34,3 +38,8 @@ void stamp_IMUData(IMUStamped* imu);
 
 
 #endif //IMU_IMU_DATA_H
+
+
+#ifdef __cplusplus
+    }
+#endif

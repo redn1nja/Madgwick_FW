@@ -1,9 +1,14 @@
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "time_utils.h"
 #include "imu_data.h"
 
 time_calc time;
 #define MIL 1000
 
+#ifndef LOCAL_BUILD
 void start_time(){
     HAL_TIM_Base_Start_IT(&htim1);
     time.sec = 0;
@@ -17,7 +22,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef* htim){
         time.msec ^= time.msec;
     }
 }
-
+#endif
 
 uint32_t calc_dt(){
     static time_calc stopwatch;
@@ -31,3 +36,7 @@ void stamp_IMUData(IMUStamped* imu){
     imu->time.sec = time.sec;
     imu->time.msec = time.msec;
 }
+
+#ifdef __cplusplus
+}
+#endif

@@ -1,8 +1,16 @@
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+
 #ifndef IMU_TIME_UTILS_H
 #define IMU_TIME_UTILS_H
 #include "stdint.h"
+
+#ifndef LOCAL_BUILD
 #include "tim.h"
 #include "stm32f3xx_hal_tim.h"
+#endif
 
 #pragma pack(push, 1)
 typedef struct {
@@ -14,4 +22,9 @@ typedef struct {
 void start_time();
 uint32_t  calc_dt();
 
-#endif //IMU_TIME_UTILS_H
+#endif
+
+    //IMU_TIME_UTILS_H
+#ifdef __cplusplus
+    }
+#endif

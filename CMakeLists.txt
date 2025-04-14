@@ -49,7 +49,7 @@ else ()
     add_compile_options(-Og -g)
 endif ()
 
-include_directories(Core/Inc Drivers/STM32F3xx_HAL_Driver/Inc Drivers/STM32F3xx_HAL_Driver/Inc/Legacy Drivers/CMSIS/Device/ST/STM32F3xx/Include Drivers/CMSIS/Include Drivers/BSP/Components)
+include_directories(Core/Inc Core/Inc/imu_filter Drivers/STM32F3xx_HAL_Driver/Inc Drivers/STM32F3xx_HAL_Driver/Inc/Legacy Drivers/CMSIS/Device/ST/STM32F3xx/Include Drivers/CMSIS/Include Drivers/BSP/Components)
 include_directories(Drivers/BSP/Components/Common)
 include_directories(Drivers/BSP/STM32F3-Discovery)
 add_definitions(-DDEBUG -DUSE_HAL_DRIVER -DSTM32F303xC)

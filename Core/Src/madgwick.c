@@ -1,10 +1,15 @@
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+
 #include <madgwick.h>
 #include <math.h>
 
 static IMUStamped last_data;
 static Quaternion q_data = {1, 0, 0, 0};
 
-void madgwick_filter_update(IMUStamped* pdata) {
+Quaternion madgwick_filter_update(IMUStamped* pdata) {
     float dt = (pdata->time.sec - last_data.time.sec)*1000 + ((int16_t)pdata->time.msec - (int16_t)last_data.time.msec);
     dt /= 1000;
     const Quaternion q = q_data;
@@ -52,14 +57,18 @@ void madgwick_filter_update(IMUStamped* pdata) {
         quat_normalize(&nabla);
     }
 
-    quat_scalar_mult(&nabla, beta);
+    quat_scalar_mult(&nabla, beta_mad);
     quat_diff(&qDot, &qGyro, &nabla);
     quat_scalar_mult(&qDot, dt);
     quat_sum(&q_data, &q, &qDot);
     quat_normalize(&q_data);
     quaternion_to_euler(&q_data, &pdata->rpy);
     last_data = *pdata;
+    Quaternion q_cpy = q_data;
+    return q_cpy;
 }
 
-
+#ifdef __cplusplus
+}
+#endif
 
