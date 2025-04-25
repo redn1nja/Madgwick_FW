@@ -28,7 +28,7 @@ void quat_conj(Quaternion* q) {
     q->z = -q->z;
 }
 
-void quat_scalar_mult (Quaternion* q, float s) {
+void quat_scalar_mult (Quaternion* q, double s) {
     q->w *= s;
     q->x *= s;
     q->y *= s;

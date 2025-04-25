@@ -9,21 +9,21 @@ extern "C" {
 
 #pragma pack(push,1)
 typedef struct {
-    float gyroX;
-    float gyroY;
-    float gyroZ;
-    float accX;
-    float accY;
-    float accZ;
-    float magX;
-    float magY;
-    float magZ;
+    double gyroX;
+    double gyroY;
+    double gyroZ;
+    double accX;
+    double accY;
+    double accZ;
+    double magX;
+    double magY;
+    double magZ;
 } IMUData;
 
 typedef struct {
-    float roll;
-    float pitch;
-    float yaw;
+    double roll;
+    double pitch;
+    double yaw;
 }RPY;
 
 typedef struct {
